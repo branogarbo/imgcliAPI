@@ -20,7 +20,7 @@ func main() {
 			Chars  string
 			Invert bool
 		}{
-			Src:   "cdn.britannica.com/60/8160-050-08CCEABC/German-shepherd.jpg",
+			Src:   `"cdn.britannica.com/60/8160-050-08CCEABC/German-shepherd.jpg"`,
 			Mode:  "ascii",
 			Width: 100,
 			Chars: " .:-=+*#%@",
