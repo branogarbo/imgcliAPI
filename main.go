@@ -12,15 +12,17 @@ func main() {
 		UnescapePath: true,
 	})
 
-	app.Get("/gen", func(c *fiber.Ctx) error {
+	app.All("/gen", func(c *fiber.Ctx) error {
+		if len(c.Body()) == 0 {
+			return c.Status(fiber.StatusBadRequest).SendString("provide a URL in the request body")
+		}
+
 		icConfig := struct {
-			Src    string
 			Mode   string
 			Width  int
 			Chars  string
 			Invert bool
 		}{
-			Src:   `"cdn.britannica.com/60/8160-050-08CCEABC/German-shepherd.jpg"`,
 			Mode:  "ascii",
 			Width: 100,
 			Chars: " .:-=+*#%@",
@@ -28,11 +30,11 @@ func main() {
 
 		err := c.QueryParser(&icConfig)
 		if err != nil {
-			return c.Status(400).SendString(err.Error())
+			return c.Status(fiber.StatusBadRequest).SendString(err.Error())
 		}
 
 		img, err := ic.OutputImage(ic.OutputConfig{
-			Src:          "http://" + icConfig.Src[1:len(icConfig.Src)-1],
+			Src:          string(c.Body()),
 			OutputMode:   icConfig.Mode,
 			AsciiPattern: icConfig.Chars,
 			OutputWidth:  icConfig.Width,
@@ -40,13 +42,13 @@ func main() {
 			IsUseWeb:     true, // only web for now
 		})
 		if err != nil {
-			return c.Status(500).SendString(err.Error())
+			return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
 		}
 
 		return c.SendString(img)
 	})
 
-	app.Get("*", func(c *fiber.Ctx) error {
+	app.All("*", func(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNotFound)
 	})
 
