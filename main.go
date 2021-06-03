@@ -9,12 +9,12 @@ import (
 
 func main() {
 	app := fiber.New(fiber.Config{
-		UnescapePath: true,
+		GETOnly: true,
 	})
 
-	app.All("/gen", func(c *fiber.Ctx) error {
+	app.Get("/gen", func(c *fiber.Ctx) error {
 		if len(c.Body()) == 0 {
-			return c.Status(fiber.StatusBadRequest).SendString("provide a URL in the request body")
+			return c.Status(fiber.StatusBadRequest).SendString("provide bytes or a URL in the request body")
 		}
 
 		icConfig := struct {
@@ -22,11 +22,8 @@ func main() {
 			Width  int
 			Chars  string
 			Invert bool
-		}{
-			Mode:  "ascii",
-			Width: 100,
-			Chars: " .:-=+*#%@",
-		}
+			Web    bool
+		}{}
 
 		err := c.QueryParser(&icConfig)
 		if err != nil {
@@ -39,7 +36,8 @@ func main() {
 			AsciiPattern: icConfig.Chars,
 			OutputWidth:  icConfig.Width,
 			IsInverted:   icConfig.Invert,
-			IsUseWeb:     true, // only web for now
+			IsUseWeb:     icConfig.Web,
+			IsSrcBytes:   !icConfig.Web,
 		})
 		if err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
@@ -48,7 +46,7 @@ func main() {
 		return c.SendString(img)
 	})
 
-	app.All("*", func(c *fiber.Ctx) error {
+	app.Get("*", func(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNotFound)
 	})
 
