@@ -40,6 +40,8 @@ github.com/branogarbo/imgcli v1.28.1 h1:fzC0vTZwRCdEOp8DG6706Y/9XFYr2Rgx5RtuWX0+
 github.com/branogarbo/imgcli v1.28.1/go.mod h1:P1ZdJwkl4pqjQHniHBUQ0lcCCkx3o/O75is3+rqHkrM=
 github.com/branogarbo/imgcli v1.28.3 h1:AQ2k/0M4RY04Lukqt/lnH4grEBnUGG02xlCl3TcO8FM=
 github.com/branogarbo/imgcli v1.28.3/go.mod h1:P1ZdJwkl4pqjQHniHBUQ0lcCCkx3o/O75is3+rqHkrM=
+github.com/branogarbo/imgcli v1.29.0 h1:TzRcTqA7wRkf/dka4XsLUT491w8QDXJaQEASmoDBXBI=
+github.com/branogarbo/imgcli v1.29.0/go.mod h1:P1ZdJwkl4pqjQHniHBUQ0lcCCkx3o/O75is3+rqHkrM=
 github.com/cespare/xxhash v1.1.0/go.mod h1:XrSqR1VqqWfGrhpAt58auRo0WTKS1nRRg3ghfAqPWnc=
 github.com/cheggaaa/pb/v3 v3.0.8 h1:bC8oemdChbke2FHIIGy9mn4DPJ2caZYQnfbRqwmdCoA=
 github.com/cheggaaa/pb/v3 v3.0.8/go.mod h1:UICbiLec/XO6Hw6k+BHEtHeQFzzBH4i2/qk/ow1EJTA=
